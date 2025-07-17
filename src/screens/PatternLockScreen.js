@@ -10,6 +10,7 @@ import {
   Alert,
   PermissionsAndroid,
   Platform,
+  Image,
 } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -286,6 +287,14 @@ const PatternLockScreen = ({ navigation }) => {
     >
       <View style={styles.overlay} />
 
+      <View style={styles.lockIconContainer}>
+          <Icon
+            name={isUnlocked ? 'lock-open' : 'lock'}
+            size={60}
+            color="#fff"
+          />
+        </View>
+
       <Text style={styles.timeText}>{time}</Text>
       <Text style={styles.dateText}>{date}</Text>
 
@@ -324,14 +333,14 @@ const PatternLockScreen = ({ navigation }) => {
       {error !== '' && <Text style={styles.errorText}>{error}</Text>}
 
       <View style={styles.cameraContainer}>
-        <View style={styles.lockIconContainer}>
-          <Icon
-            name={isUnlocked ? 'lock-open' : 'lock'}
-            size={60}
-            color="#fff"
-          />
-        </View>
-
+      <View style={styles.imageWrapper}>
+        <TouchableOpacity>
+  <Image
+    style={styles.img}
+    source={require('../../assets/flashlight.png')}
+  />
+  </TouchableOpacity>
+</View>
         <TouchableOpacity style={styles.cameraButton} onPress={showImagePicker}>
           <Icon name="photo-camera" size={30} color="#fff" />
         </TouchableOpacity>
@@ -362,6 +371,12 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  lockIconContainer: {
+    top: 50,          
+    left: '50%',
+    transform: [{ translateX: -30 }],
+    zIndex: 1,
   },
   timeText: {
     fontSize: 48,
@@ -405,8 +420,24 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 40,
     width: '100%',
+    paddingHorizontal: 10,
     alignItems: 'center',
   },
+  img: {
+    width: 30,
+    height: 30,
+    tintColor: 'white', 
+  },
+  
+  imageWrapper: {
+    width: 55,
+    height: 55,
+    borderRadius: 30,        
+    backgroundColor: 'rgba(68, 68, 68, 0.8)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  
   cameraButton: {
     backgroundColor: 'rgba(68, 68, 68, 0.8)',
     borderRadius: 30,
