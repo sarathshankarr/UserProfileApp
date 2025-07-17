@@ -288,12 +288,8 @@ const PatternLockScreen = ({ navigation }) => {
       <View style={styles.overlay} />
 
       <View style={styles.lockIconContainer}>
-          <Icon
-            name={isUnlocked ? 'lock-open' : 'lock'}
-            size={60}
-            color="#fff"
-          />
-        </View>
+        <Icon name={isUnlocked ? 'lock-open' : 'lock'} size={60} color="#fff" />
+      </View>
 
       <Text style={styles.timeText}>{time}</Text>
       <Text style={styles.dateText}>{date}</Text>
@@ -333,14 +329,14 @@ const PatternLockScreen = ({ navigation }) => {
       {error !== '' && <Text style={styles.errorText}>{error}</Text>}
 
       <View style={styles.cameraContainer}>
-      <View style={styles.imageWrapper}>
-        <TouchableOpacity>
-  <Image
-    style={styles.img}
-    source={require('../../assets/flashlight.png')}
-  />
-  </TouchableOpacity>
-</View>
+        <View style={styles.imageWrapper}>
+          <TouchableOpacity>
+            <Image
+              style={styles.img}
+              source={require('../../assets/flashlight.png')}
+            />
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity style={styles.cameraButton} onPress={showImagePicker}>
           <Icon name="photo-camera" size={30} color="#fff" />
         </TouchableOpacity>
@@ -373,7 +369,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   lockIconContainer: {
-    top: 50,          
+    top: 50,
     left: '50%',
     transform: [{ translateX: -30 }],
     zIndex: 1,
@@ -426,18 +422,18 @@ const styles = StyleSheet.create({
   img: {
     width: 30,
     height: 30,
-    tintColor: 'white', 
+    tintColor: 'white',
   },
-  
+
   imageWrapper: {
     width: 55,
     height: 55,
-    borderRadius: 30,        
+    borderRadius: 30,
     backgroundColor: 'rgba(68, 68, 68, 0.8)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   cameraButton: {
     backgroundColor: 'rgba(68, 68, 68, 0.8)',
     borderRadius: 30,
