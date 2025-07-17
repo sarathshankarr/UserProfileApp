@@ -1,29 +1,21 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { UserProvider } from './src/context/UserContext';
-import ProfileScreen from './src/screens/ProfileScreen';
+import PatternLockScreen from './src/screens/PatternLockScreen';
 import HomeScreen from './src/screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+export default function App() {
   return (
-    <UserProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false,
-            animation: 'slide_from_right',
-          }}
-        >
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </UserProvider>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Lock"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Lock" component={PatternLockScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-
-export default App;
+}
