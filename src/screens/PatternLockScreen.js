@@ -263,7 +263,6 @@ const PatternLockScreen = ({ navigation }) => {
       setError('');
     
       setCurrentPattern(prev => {
-        // If already drawing and dot is not in pattern, extend it
         if (prev.length > 0 && !prev.includes(touchedDot.id)) {
           const lastDotId = prev[prev.length - 1];
           const from = dotPositions.find(d => d.id === lastDotId);
@@ -284,7 +283,6 @@ const PatternLockScreen = ({ navigation }) => {
           return [...prev, touchedDot.id];
         }
     
-        // Otherwise, start new pattern
         return [touchedDot.id];
       });
     },
