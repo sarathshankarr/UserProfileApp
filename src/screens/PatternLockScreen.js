@@ -60,14 +60,16 @@ const PatternLockScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      return true;
-    });
-  
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        return true;
+      },
+    );
+
     return () => backHandler.remove();
   }, []);
 
-  
   useEffect(() => {
     containerRef.current?.measure((fx, fy, w, h, px, py) => {
       offset.current = { x: px, y: py };
@@ -183,23 +185,23 @@ const PatternLockScreen = ({ navigation }) => {
   const openCamera = async () => {
     console.log('Requesting camera permission...');
     const hasPermission = await requestCameraPermission();
-  
+
     if (!hasPermission) {
       console.log('Camera permission denied.');
       Alert.alert('Permission denied', 'Camera permission is required');
       return;
     }
-  
+
     try {
       console.log('Camera permission granted. Launching camera...');
       setIsPickerOpen(true); // ⛔️ hide UI below picker
-  
+
       const image = await ImagePicker.openCamera({
         cropping: true,
         compressImageQuality: 0.8,
         mediaType: 'photo',
       });
-  
+
       if (image && image.path) {
         console.log('Captured image path:', image.path);
         setBackgroundImage(image.path);
@@ -211,10 +213,9 @@ const PatternLockScreen = ({ navigation }) => {
       console.log('ImagePicker camera error:', error.message || error);
       Alert.alert('Camera Error', error.message || 'Unknown error');
     } finally {
-      setIsPickerOpen(false); // ✅ show UI again
+      setIsPickerOpen(false);
     }
   };
-  
 
   const openGallery = () => {
     const options = {
@@ -238,8 +239,8 @@ const PatternLockScreen = ({ navigation }) => {
   };
 
   const getDotAtTouch = (x, y) => {
-    const TOUCH_RADIUS = 40; 
-  
+    const TOUCH_RADIUS = 40;
+
     for (let dot of dotPositions) {
       const dx = x - offset.current.x - (dot.x + dotSize / 2);
       const dy = y - offset.current.y - (dot.y + dotSize / 2);
@@ -248,7 +249,6 @@ const PatternLockScreen = ({ navigation }) => {
     }
     return null;
   };
-  
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -256,18 +256,18 @@ const PatternLockScreen = ({ navigation }) => {
     onPanResponderGrant: evt => {
       const { pageX, pageY } = evt.nativeEvent;
       const touchedDot = getDotAtTouch(pageX, pageY);
-    
+
       if (!touchedDot) return;
-    
+
       setIsDrawing(true);
       setError('');
-    
+
       setCurrentPattern(prev => {
         if (prev.length > 0 && !prev.includes(touchedDot.id)) {
           const lastDotId = prev[prev.length - 1];
           const from = dotPositions.find(d => d.id === lastDotId);
           const to = touchedDot;
-    
+
           if (from && to) {
             setLines(lines => [
               ...lines,
@@ -279,14 +279,14 @@ const PatternLockScreen = ({ navigation }) => {
               },
             ]);
           }
-    
+
           return [...prev, touchedDot.id];
         }
-    
+
         return [touchedDot.id];
       });
     },
-    
+
     onPanResponderMove: evt => {
       if (!isDrawing) return;
       const { pageX, pageY } = evt.nativeEvent;
@@ -402,7 +402,6 @@ const PatternLockScreen = ({ navigation }) => {
       {!isPickerOpen && renderContent()}
     </ImageBackground>
   );
-  
 };
 
 const styles = StyleSheet.create({
